@@ -1,339 +1,375 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Anti-SCAM</title>
-<!-- Подключение шрифтов -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins&display=swap" rel="stylesheet" />
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    /* Тёмный фон с хаотичными пятнами */
-    background-color: #2f3136;
-    background-image:
-      radial-gradient(circle at 10% 20%, rgba(255, 132, 0, 0.2), transparent 40%),
-      radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1), transparent 60%),
-      radial-gradient(circle at 50% 50%, rgba(255, 0, 255, 0.2), transparent 50%),
-      linear-gradient(135deg, #4b0082, #1d003d);
-    background-blend-mode: overlay;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    color: #111;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Project</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-  /* Заголовок и навигация */
-  header {
-    width: 100%;
-    background-color: rgba(20, 20, 25, 0.9);
-    padding: 20px 40px;
-    display: flex;
-    flex-direction: column; /* Вертикальный порядок */
-    align-items: center; /* Центрировать по горизонтали */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    margin-top: 10px;
-  }
+        :root {
+            --discord-bg: #36393f;
+            --discord-secondary: #2f3136;
+            --discord-tertiary: #202225;
+            --discord-text: #dcddde;
+            --discord-accent: #5865f2;
+            --discord-accent-hover: #4752c4;
+            --discord-green: #57f287;
+            --discord-border: #40444b;
+        }
 
-  .title-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px; /* Отступ снизу перед кнопками */
-  }
+        body {
+            background-color: var(--discord-bg);
+            color: var(--discord-text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
 
-  .separator {
-    width: 2px;
-    height: 40px;
-    background-color: #333;
-    margin-right: 20px;
-  }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-  /* Заголовок с свечением */
-  h1 {
-    margin: 0;
-    font-size: 2em;
-    color: #ffffff; /* белый цвет */
-    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff; /* свечения */
-  }
+        /* Шапка сайта */
+        header {
+            background-color: var(--discord-tertiary);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--discord-border);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
 
-  /* Кнопки навигации — теперь под заголовком */
-  .nav-buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-  button {
-    background: linear-gradient(135deg, #4b0082, #8a2be2);
-    color: #fff;
-    border: none;
-    padding: 14px 20px;
-    font-size: 1em;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    font-family: 'Poppins', sans-serif;
-  }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-  button:hover {
-    background: linear-gradient(135deg, #8a2be2, #4b0082);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
-  }
+        .logo h1 {
+         color: white;
+        font-size: 28px;
+        font-weight: 700;
+        color: #5865f2; /* Только синий цвет Discord */
+        }
 
-  /* Основной контент */
-  main {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-  }
+        /* Навигационное меню */
+        nav {
+            background-color: var(--discord-secondary);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 20px 0;
+            border: 1px solid var(--discord-border);
+        }
 
-  .slide {
-    display: none;
-    max-width: 800px;
-    text-align: center;
-    font-family: 'Orbitron', sans-serif;
-    color: #fff;
-    animation: fadeIn 0.5s ease-in-out;
-  }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 5px;
+        }
 
-  .slide.active {
-    display: block;
-  }
+        .nav-links li {
+            flex: 1;
+        }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background-color: var(--discord-tertiary);
+            color: var(--discord-text);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
 
-  /* Заголовки внутри слайдов */
-  .slide h2 {
-    font-size: 2em;
-    margin-bottom: 15px;
-  }
+        .nav-links a:hover {
+            background-color: var(--discord-bg);
+            border-color: var(--discord-border);
+            transform: translateY(-2px);
+        }
 
-  /* Текст внутри слайдов */
-  .slide p {
-    font-size: 1.2em;
-    line-height: 1.5;
-  }
+        .nav-links a.active {
+            background-color: var(--discord-accent);
+            color: white;
+        }
 
-  /* Стиль для текста внутри слайда */
-  .main-text {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.4em;
-    line-height: 1.6;
-    color: #fff;
-    text-align: left;
-  }
+        .nav-links i {
+            font-size: 18px;
+        }
 
-  /* Список программ и сайтов */
-  .programs-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+        /* Основной контент */
+        main {
+            background-color: var(--discord-secondary);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 20px;
+            border: 1px solid var(--discord-border);
+            min-height: 500px;
+        }
 
-  .programs-list li {
-    margin-bottom: 10px;
-  }
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
 
-  .programs-list a {
-    color: #00ffff;
-    text-decoration: underline;
-  }
+        .page.active {
+            display: block;
+        }
 
-  /* Подвал сайта */
-  footer {
-    width: 100%;
-    background-color: rgba(20, 20, 25, 0.9);
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 -4px 8px rgba(0,0,0,0.2);
-    font-size: 0.9em;
-    color: #555;
-  }
-</style>
+        .page h2 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--discord-accent);
+        }
+
+        .page-content {
+            padding: 20px 0;
+        }
+
+        .card {
+            background-color: var(--discord-tertiary);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--discord-accent);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: var(--discord-green);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        /* Подвал */
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 20px;
+            color: #8a8e94;
+            font-size: 14px;
+            border-top: 1px solid var(--discord-border);
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .logo h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt fa-2x" style="color: #5865f2;"></i>
+                    <h1>SecurityLab</h1>
+                </div>
+                <div class="tagline">
+                    <p>Исследование фишинговых атак и методов защиты</p>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<header>
-  <div class="title-container">
-    <div class="separator"></div>
-    <h1>Anti-Scam: Твой щит от мошенников в играх и соцсетях!</h1>
-  </div>
-  <!-- Кнопки под заголовком -->
-  <div class="nav-buttons" id="nav-buttons">
-    <button onclick="showSlide(0)">Главная</button>
-    <button onclick="showSlide(1)">Опасность мошенничества</button>
-    <button onclick="showSlide(2)">Виды мошенничества</button>
-    <button onclick="showSlide(3)">О проекте</button>
-    <button onclick="showSlide(4)">Цели</button>
-    <!-- Новая кнопка -->
-    <button onclick="showSlide(5)">Полезные программы и сайты</button>
-  </div>
-</header>
+    <div class="container">
+        <nav>
+            <ul class="nav-links">
+                <li>
+                    <a href="#" class="nav-btn active" data-page="home">
+                        <i class="fas fa-home"></i>
+                        <span>Главная</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-btn" data-page="about">
+                        <i class="fas fa-info-circle"></i>
+                        <span>О проекте</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-btn" data-page="research">
+                        <i class="fas fa-search"></i>
+                        <span>Исследование</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-btn" data-page="methods">
+                        <i class="fas fa-code"></i>
+                        <span>Методы</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-btn" data-page="results">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Результаты</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-btn" data-page="contact">
+                        <i class="fas fa-envelope"></i>
+                        <span>Контакты</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-<main>
-  <!-- Первый слайд -->
-  <div class="slide active" id="slide0">
-    <h2>Добро пожаловать</h2>
-    <div class="main-text" id="slide0-content">
-      <!-- Контент будет вставлен через скрипт -->
+        <main>
+            <!-- Главная страница -->
+            <section id="home" class="page active">
+                <h2><i class="fas fa-home"></i> Добро пожаловать</h2>
+                <div class="page-content">
+                    <div class="card">
+                        <h3><i class="fas fa-bullseye"></i> Цель проекта</h3>
+                        <p>Исследование современных фишинговых атак, анализ методов социальной инженерии и разработка эффективных способов защиты пользователей.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-tasks"></i> Задачи</h3>
+                        <p>• Анализ существующих фишинговых техник<br>
+                           • Изучение психологических аспектов социальной инженерии<br>
+                           • Разработка рекомендаций по безопасности<br>
+                           • Создание системы распознавания фишинговых сайтов</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- О проекте -->
+            <section id="about" class="page">
+                <h2><i class="fas fa-info-circle"></i> О проекте</h2>
+                <div class="page-content">
+                    <div class="card">
+                        <h3><i class="fas fa-project-diagram"></i> Описание</h3>
+                        <p>Данный индивидуальный проект посвящен глубокому анализу фишинговых атак. Мы исследуем как технические аспекты, так и человеческий фактор в кибербезопасности.</p>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fas fa-calendar-alt"></i> Сроки</h3>
+                        <p>Проект рассчитан на 3 месяца и включает в себя несколько этапов исследования и разработки.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Исследование -->
+            <section id="research" class="page">
+                <h2><i class="fas fa-search"></i> Исследование</h2>
+                <div class="page-content">
+                    <div class="card">
+                        <h3><i class="fas fa-chart-line"></i> Статистика</h3>
+                        <p>Современные тенденции в области фишинговых атак показывают рост на 65% за последний год.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Методы -->
+            <section id="methods" class="page">
+                <h2><i class="fas fa-code"></i> Методы исследования</h2>
+                <div class="page-content">
+                    <div class="card">
+                        <h3><i class="fas fa-flask"></i> Эксперименты</h3>
+                        <p>Использование контролируемых фишинговых атак для анализа поведения пользователей.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Результаты -->
+            <section id="results" class="page">
+                <h2><i class="fas fa-chart-bar"></i> Результаты</h2>
+                <div class="page-content">
+                    <div class="card">
+                        <h3><i class="fas fa-check-circle"></i> Выводы</h3>
+                        <p>Предварительные результаты показывают эффективность многофакторной аутентификации.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Контакты -->
+            <section id="contact" class="page">
+                <h2><i class="fas fa-envelope"></i> Контакты</h2>
+                <div class="page-content">
+                    <div class="card">
+                        <h3><i class="fas fa-user"></i> Автор</h3>
+                        <p>Индивидуальный проект студента [Ваше Имя]<br>
+                        Для связи: student@university.edu</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2024 SecurityLab. Индивидуальный проект по исследованию фишинговых атак. Все права защищены.</p>
+            <p style="margin-top: 10px; font-size: 12px;">Цветовая схема: Discord Dark Theme</p>
+        </footer>
     </div>
-  </div>
-  <!-- Остальные слайды создадим динамически -->
-</main>
 
-<footer>
-  © 2023 Anti-Scam. Все права защищены.
-</footer>
-
-<script>
-  const sections = [
-    {
-      title: "Главная",
-      content: `
-        <p>Мошенники используют все более изощренные схемы, чтобы обмануть тебя и украсть личные данные или деньги. Сегодня популярные схемы включают фишинг, поддельные сайты, ложные акции и розыгрыши, а также соцсети с фейковыми аккаунтами.</p>
-        <p>Важно уметь распознавать попытки обмана: будь осторожен с подозрительными ссылками, не делись личной информацией с незнакомцами и всегда проверяй источники.</p>
-        <h3>Что ты можешь сделать здесь?</h3>
-        <ul>
-          <li><strong>Советы:</strong> Узнай, как избегать фишинговых писем, поддельных аккаунтов и мошеннических схем в сети.</li>
-          <li><strong>Инструменты:</strong> Генератор надежных паролей, проверка подозрительных ссылок, тест доверчивости — всё, чтобы защитить себя онлайн.</li>
-          <li><strong>Реальные кейсы:</strong> Разбор популярных мошеннических схем, чтобы знать, как не попасться.</li>
-        </ul>
-      `
-    },
-    {
-      title: "Опасность мошенничества",
-      content: `
-        <h2>Почему важно знать о мошенничестве?</h2>
-        <p>Потеря личных данных — одна из самых опасных ситуаций в интернете. Мошенники используют утрату информации для различных преступлений, что может привести к значительным финансовым потерям и проблемам с безопасностью.</p>
-        <h3>Опасности, связанные с потерей личных данных:</h3>
-        <ul>
-          <li><strong>Кража денег:</strong> Использование ваших данных для несанкционированных транзакций или взлома банковских аккаунтов.</li>
-          <li><strong>Вымогательство:</strong> Шантаж с использованием личных фотографий или информации.</li>
-          <li><strong>Фишинг и кибершпионаж:</strong> Получение доступа к вашим аккаунтам и конфиденциальной информации.</li>
-          <li><strong>Обман и мошенничество:</strong> Использование ваших данных для создания фальшивых аккаунтов или схем обмана других.</li>
-          <li><strong>Потеря репутации:</strong> Распространение компрометирующей информации или фотографий.</li>
-        </ul>
-        <h3>Почему это опасно?</h3>
-        <p>Потеря личных данных может привести к финансовым потерям, утрате репутации, психологическому стрессу и даже к юридическим проблемам. Мошенники могут использовать ваши данные для совершения преступлений, что усложняет восстановление вашей безопасности и доверия.</p>
-        <p>Чтобы избежать этого, важно быть бдительным, защищать свои данные и своевременно реагировать на подозрительные ситуации.</p>
-      `
-    },
-    {
-      title: "Виды мошенничества",
-      content: `
-        <h2>Виды мошенничества и схемы обмана</h2>
-        <h3>1. Фишинг и социальная инженерия</h3>
-        <p>Создание поддельных сайтов, писем или сообщений, маскирующихся под официальные ресурсы — банки, соцсети, государственные службы. Цель — заполучить ваши личные данные, пароли или номера карт.</p>
-        <h3>2. Мошенничество в соцсетях и мессенджерах</h3>
-        <p>Создание фейковых аккаунтов, разыгрывающих доверие, или рассылка мошеннических сообщений с просьбой о помощи или переводе денег.</p>
-        <h3>3. Продажа фальшивых товаров и услуг</h3>
-        <p>Создание фальшивых интернет-магазинов, продажа несуществующих товаров или получение предоплаты без поставки.</p>
-        <h3>4. Вымогательство и шантаж</h3>
-        <p>Использование украденных фото или видео для шантажа с целью получения денег или других выгод.</p>
-        <h3>5. Мошенничество с инвестициями и криптовалютами</h3>
-        <p>Обещания быстрых и больших доходов через фальшивые инвестиционные схемы или пирамиды.</p>
-        <h3>6. Мошенничество с внутриигровыми ресурсами</h3>
-        <p>Обман при продаже внутриигровых предметов, аккаунтов, внутриигровая мошенническая деятельность.</p>
-        <h3>Области распространения:</h3>
-        <ul>
-          <li>Социальные сети (ВКонтакте, Instagram, TikTok)</li>
-          <li>Мессенджеры (Telegram, WhatsApp)</li>
-          <li>Интернет-магазины и торговые площадки</li>
-          <li>Онлайн-игры и игровые платформы</li>
-          <li>Финансовые сервисы и криптовалютные биржи</li>
-        </ul>
-      `
-    },
-    {
-      title: "О проекте",
-      content: `
-        <h2>О проекте</h2>
-        <p>Anti-Scam — это инициатива по повышению осведомлённости и защиты пользователей от мошенничества в интернете.</p>
-        <p>Наши цели — обучение, создание инструментов и распространение информации, чтобы каждый мог защитить свои данные и деньги.</p>
-      `
-    },
-    {
-      title: "Цели",
-      content: `
-        <h2>Обзор сайта</h2>
-        <p>На этом сайте вы найдете актуальную информацию, советы и инструменты для защиты в интернете.</p>
-        <p>Используйте разделы для обучения и повышения своей безопасности.</p>
-      `
-    },
-    // Новый раздел с 6-й кнопкой
-    {
-      title: "Полезные программы и сайты",
-      content: `
-        <h2>Полезные программы и сайты для защиты</h2>
-        <ul class="programs-list">
-          <li><a href="https://www.lastpass.com/" target="_blank" rel="noopener noreferrer">LastPass — Менеджер паролей</a></li>
-          <li><a href="https://haveibeenpwned.com/" target="_blank" rel="noopener noreferrer">Have I Been Pwned — Проверка утечек данных</a></li>
-          <li><a href="https://virustotal.com/" target="_blank" rel="noopener noreferrer">VirusTotal — Проверка подозрительных файлов и ссылок</a></li>
-          <li><a href="https://www.kaspersky.ru/internet-security" target="_blank" rel="noopener noreferrer">Kaspersky — Антивирус</a></li>
-          <li><a href="https://torproject.org/" target="_blank" rel="noopener noreferrer">Tor Browser — Анонимность в сети</a></li>
-          <li><a href="https://2ip.ru/" target="_blank" rel="noopener noreferrer">2ip.ru — Проверка IP и геолокации</a></li>
-          <li><a href="https://privacy.com/" target="_blank" rel="noopener noreferrer">Privacy.com — Создание виртуальных карт</a></li>
-          <li><a href="https://duckduckgo.com/" target="_blank" rel="noopener noreferrer">DuckDuckGo — Поиск без слежки</a></li>
-          <li><a href="https://keepass.info/" target="_blank" rel="noopener noreferrer">KeePass — Менеджер паролей</a></li>
-        </ul>
-      `
-    }
-  ];
-
-  // Создаем все слайды динамически
-  const mainContainer = document.querySelector('main');
-
-  sections.forEach((section, index) => {
-    if (index !== 0) { // первый слайд уже есть
-      const slideDiv = document.createElement('div');
-      slideDiv.className = 'slide';
-      slideDiv.id = 'slide' + index;
-      slideDiv.innerHTML = `
-        <h2>${section.title}</h2>
-        <div class="main-text" id="slide${index}-content">${section.content}</div>
-      `;
-      mainContainer.appendChild(slideDiv);
-    }
-  });
-
-  // Обновляем названия кнопок и содержимое слайдов
-  function updateUI() {
-    const buttons = document.querySelectorAll('.nav-buttons button');
-    buttons.forEach((btn, i) => {
-      if (sections[i]) {
-        btn.textContent = sections[i].title;
-        // Обновляем содержимое слайда
-        const slide = document.getElementById('slide' + i);
-        if (slide && sections[i]) {
-          slide.querySelector('h2').textContent = sections[i].title;
-          slide.querySelector('.main-text').innerHTML = sections[i].content;
-        }
-      }
-    });
-  }
-
-  // Показывать выбранный слайд
-  function showSlide(index) {
-    const slides = document.querySelectorAll('.slide');
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('active', i === index);
-    });
-  }
-
-  // Инициализация интерфейса
-  updateUI();
-</script>
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const pages = document.querySelectorAll('.page');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const pageId = this.getAttribute('data-page');
+                    
+                    // Убираем активный класс у всех кнопок и страниц
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    pages.forEach(page => page.classList.remove('active'));
+                    
+                    // Добавляем активный класс текущей кнопке и странице
+                    this.classList.add('active');
+                    document.getElementById(pageId).classList.add('active');
+                });
+            });
+            
+            // Для демонстрации: добавляем немного интерактивности
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
